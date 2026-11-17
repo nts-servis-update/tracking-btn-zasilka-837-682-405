@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTS Delivery: Zásilka ID 837-682-405</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --success: #16a34a;
+            --bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 24px 12px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 18px;
+            box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.06), 0 8px 12px -6px rgba(0, 0, 0, 0.04);
+            padding: 30px 26px;
+        }
+
+        .header-box {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .package-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        h1 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        hr.divider {
+            border: none;
+            height: 2px;
+            background: var(--border);
+            margin: 20px 0;
+        }
+
+        .eta-box {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-bottom: 28px;
+        }
+
+        .eta-main {
+            font-size: 1.08rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .eta-subnote {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            font-weight: 400;
+        }
+
+        h2.section-subtitle {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 22px;
+        }
+
+        /* Časová osa (Timeline) */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: stretch;
+            position: relative;
+        }
+
+        .timeline-marker-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+
+        .timeline-check {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: var(--success);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            z-index: 2;
+            box-shadow: 0 2px 6px rgba(22, 163, 74, 0.25);
+        }
+
+        /* Svislá spojovací čára mezi fajfkami (pouze pokud jsou 2 a více stavů) */
+        .timeline-line {
+            width: 3px;
+            background-color: var(--success);
+            flex-grow: 1;
+            margin-top: -1px;
+            margin-bottom: -1px;
+        }
+
+        .timeline-item:last-child .timeline-line {
+            display: none;
+        }
+
+        .timeline-content {
+            padding-bottom: 26px;
+            flex: 1;
+            padding-top: 2px;
+        }
+
+        .timeline-item:last-child .timeline-content {
+            padding-bottom: 4px;
+        }
+
+        /* Názvy stavů nejsou tučně dle zadání */
+        .status-title {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-main);
+        }
+
+        .status-note {
+            font-size: 0.86rem;
+            font-weight: 400;
+            color: #475569;
+            margin-top: 4px;
+        }
+
+        .status-note a {
+            color: var(--primary);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        .status-note a:hover {
+            color: #1d4ed8;
+        }
+
+        .status-datetime {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        .empty-state {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            padding: 16px 0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 22px 16px;
+            }
+            h1 {
+                font-size: 1.25rem;
+            }
+            .eta-box {
+                padding: 14px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-box">
+            <div class="package-icon">
+                <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                </svg>
+            </div>
+            <h1>NTS Delivery: Zásilka ID 837-682-405</h1>
+        </div>
+
+        <hr class="divider">
+
+        <div class="eta-box">
+            <div id="eta-text" class="eta-main">
+                Předpokládaný termín doručení: středa, 18.11.2026, do 17:30
+            </div>
+            <div id="eta-note" class="eta-subnote hidden">
+                Zásilka byla objednána na nesprávné depo. Právě ji převážíme na Vaše místní depo.
+            </div>
+        </div>
+
+        <h2 class="section-subtitle">Sledujte stav zásilky:</h2>
+
+        <div id="timeline-container" class="timeline">
+            <div class="empty-state">Načítání stavu zásilky...</div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzLLHPPZKUsa5HTlMBMn1I2eqc4DwY5_k",
+            authDomain: "objednavka-3kabely.firebaseapp.com",
+            databaseURL: "https://objednavka-3kabely-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "objednavka-3kabely",
+            storageBucket: "objednavka-3kabely.firebasestorage.app",
+            messagingSenderId: "295205729475",
+            appId: "1:295205729475:web:cb2e3cd091a9a20df75e76"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const statusesRef = ref(db, 'shipments/837-682-405/statuses');
+
+        // Překlopení stavů dle ID pro uživatelskou stránku
+        const USER_STEPS = [
+            {
+                id: 'A',
+                order: 0,
+                title: 'Objednávka vytvořena (Alza.cz)',
+                noteHtml: '3x 0,5 metru napájecí kabely'
+            },
+            {
+                id: 'B',
+                order: 1,
+                title: 'Objednávka odeslána (Alza.cz)'
+            },
+            {
+                id: 'C',
+                order: 2,
+                title: 'Objednávka dorazila do místního depa (Alza.cz), Kolej B. Václavka'
+            },
+            {
+                id: 'D',
+                order: 3,
+                title: 'Zásilka zpracována (část 1/3), je na cestě do našeho skladu'
+            },
+            {
+                id: 'E',
+                order: 4,
+                title: 'Zásilka zpracována (část 2/3), je na cestě do našeho skladu'
+            },
+            {
+                id: 'F',
+                order: 5,
+                title: 'Zásilka zpracována (část 3/3), je na cestě do našeho skladu'
+            },
+            {
+                id: 'G',
+                order: 6,
+                title: 'Zásilka dorazila do našeho skladu (část 1/3), právě ji připravujeme k doručení'
+            },
+            {
+                id: 'H',
+                order: 7,
+                title: 'Zásilka dorazila do našeho skladu (část 2/3), právě ji připravujeme k doručení'
+            },
+            {
+                id: 'I',
+                order: 8,
+                title: 'Zásilka dorazila do našeho skladu (část 3/3), právě ji připravujeme k doručení'
+            },
+            {
+                id: 'J',
+                order: 9,
+                title: 'Změna odeslání zásilky - Zásilka nedorazila na správné depo, proto ji odešleme do Vašeho lokálního depa',
+                noteHtml: 'Zásilka byla objednána na jiné depo než je Vaše expediční depo. Jakmile dorazí na Vaše lokální depo, budeme ji doručovat'
+            },
+            {
+                id: 'K',
+                order: 10,
+                title: 'Odesláno ze skladu'
+            },
+            {
+                id: 'L',
+                order: 11,
+                title: 'Dorazila do třídícího depa: Envelopa Hub Olomouc'
+            },
+            {
+                id: 'M',
+                order: 12,
+                title: 'Předáno k převozu do Vašeho lokálního expedičního depa',
+                noteHtml: 'Sledovací číslo převozu je: <a href="https://www.balikovna.cz/cs/sledovat-balik/-/balik/NB3304187862U" target="_blank" rel="noopener noreferrer">NB3304187862U</a>'
+            },
+            {
+                id: 'N',
+                order: 13,
+                title: 'Je v logistické síti / uzlu'
+            },
+            {
+                id: 'O',
+                order: 14,
+                title: 'Naskladnění na depu Charváty (DNM)'
+            },
+            {
+                id: 'P',
+                order: 15,
+                title: 'Odesláno k Vám (depo Charváty (DNM))',
+                noteHtml: 'Zásilka opustila naše depo a za chvíli bude u Vás!'
+            },
+            {
+                id: 'Q',
+                order: 16,
+                title: 'Doručeno. Zásilka je ve Vašich rukou!'
+            }
+        ];
+
+        const etaTextEl = document.getElementById('eta-text');
+        const etaNoteEl = document.getElementById('eta-note');
+        const timelineContainer = document.getElementById('timeline-container');
+
+        // Čtení stavů z Firebase Realtime Database (pouze čte, nic nemění)
+        onValue(statusesRef, (snapshot) => {
+            const dbStatuses = snapshot.val() || {};
+
+            // Kontrola, zda proběhl stav ID: J (nebo jakýkoliv následující po provedení J)
+            const isJCompleted = USER_STEPS.some(step => step.order >= 9 && dbStatuses[step.id] && dbStatuses[step.id].completed === true);
+
+            if (isJCompleted) {
+                etaTextEl.textContent = 'Předpokládaný termín doručení: pátek, 20.11.2026, do 18:00';
+                etaNoteEl.classList.remove('hidden');
+            } else {
+                etaTextEl.textContent = 'Předpokládaný termín doručení: středa, 18.11.2026, do 17:30';
+                etaNoteEl.classList.add('hidden');
+            }
+
+            // Vyfiltrujeme pouze proběhlé stavy a seřadíme je od nejnovějšího po nejstarší (Q -> A)
+            const completedSteps = USER_STEPS
+                .filter(step => dbStatuses[step.id] && dbStatuses[step.id].completed === true)
+                .sort((a, b) => b.order - a.order);
+
+            timelineContainer.innerHTML = '';
+
+            if (completedSteps.length === 0) {
+                timelineContainer.innerHTML = '<div class="empty-state">Zatím neproběhl žádný stav zásilky.</div>';
+                return;
+            }
+
+            completedSteps.forEach((step) => {
+                const record = dbStatuses[step.id];
+                const itemEl = document.createElement('div');
+                itemEl.className = 'timeline-item';
+
+                itemEl.innerHTML = `
+                    <div class="timeline-marker-col">
+                        <div class="timeline-check">
+                            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="status-title">${step.title}</div>
+                        ${step.noteHtml ? `<div class="status-note">${step.noteHtml}</div>` : ''}
+                        <div class="status-datetime">${record.datetime || ''}</div>
+                    </div>
+                `;
+
+                timelineContainer.appendChild(itemEl);
+            });
+        });
+    </script>
+</body>
+</html>
